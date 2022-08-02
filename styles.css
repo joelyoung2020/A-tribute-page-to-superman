@@ -1,0 +1,31 @@
+body{
+    width: auto;
+    background-color: rgb(197, 211, 221);
+}
+h1{
+    font-size: 60px;
+}
+p{
+    font-size: 20px ;
+}
+header{
+    color:black;
+    padding-bottom:50px ;
+    text-align: center;
+}
+.section-one{
+    background-color: white;
+    margin:0 10px;
+    padding: 10px 10px;
+    width: auto;
+}
+.section-two{  
+    padding:0 80px;
+}
+footer{
+    padding: 10px;
+    font-size: larger;
+}
+img{
+    width: 100%;
+}
