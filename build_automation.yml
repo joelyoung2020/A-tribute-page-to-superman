@@ -1,0 +1,24 @@
+version: 0.2
+
+phases:
+  pre-build:
+    commands: 
+      - echo Logging into Amazon ECR..
+      - aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 069269258193.dkr.ecr.eu-west-3.amazonaws.com
+      - REPOSITORY_URL=069269258193.dkr.ecr.eu-west-3.amazonaws.com/nodeapp
+  build:
+    commands:
+      - echo Building started on 'date'
+      - echo Building docker images
+      - docker build -t $REPOSITORY_URL:latest .
+      - docker tag $REPOSITORY_URL:latest $REPOSITORY_URL:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on 'date'
+      - echo Pushing the Docker images
+      - docker push $REPOSITORY_URL:$IMAGE_TAG
+      - echo Writing image definition files
+      - printf '[{"name":"nodeapp","imageUri":"%s"}]' $REPOSITORY_URL:$IMAGE_TAG > imagedefintion.json
+      - cat imagedefintion.json
+  artifacts:
+    files: imagedefintion.json
